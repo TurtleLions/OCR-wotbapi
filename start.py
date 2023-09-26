@@ -104,19 +104,20 @@ def outGame():
 def inGame(ateam1,ateam2):
   transparent_img = np.zeros((img_height, img_width, n_channels), dtype=np.uint8)
   starty = 375
-  transparent_img = cv2.rectangle(transparent_img, (2258,starty-35), (2258+290,starty+85), (51,51,51), -1)
+  transparent_img = cv2.rectangle(transparent_img, (2258,starty-30), (2258+290,starty+85), (51,51,51), -1)
+  transparent_img = cv2.rectangle(transparent_img, (10,starty-30),(300,starty+85),(51,51,51),-1)
   #text
-  cv2.putText(img=transparent_img,text='wr='+str(ateam1['winrate'])+'%', org=(20,starty),fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale=1, color=(50,100,225), thickness=2)
-  cv2.putText(img=transparent_img,text='wr='+str(ateam2['winrate'])+'%', org=(2350,starty),fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale=1, color=(50,150,225), thickness=2)
+  cv2.putText(img=transparent_img,text='wr='+str(ateam1['winrate'])+'%', org=(20,starty),fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale=1, color=(0,200,200), thickness=2)
+  cv2.putText(img=transparent_img,text='wr='+str(ateam2['winrate'])+'%', org=(2350,starty),fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale=1, color=(0,200,200), thickness=2)
 
-  cv2.putText(img=transparent_img,text='spot='+str(ateam1['spotspergame']), org=(20,starty+25),fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale=1, color=(0,200,200), thickness=2)
-  cv2.putText(img=transparent_img,text='spot='+str(ateam2['spotspergame']), org=(2340,starty+25),fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale=1, color=(0,200,200), thickness=2)
+  cv2.putText(img=transparent_img,text='spot='+str(ateam1['spotspergame']), org=(20,starty+25),fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale=1, color=(0,200,255), thickness=2)
+  cv2.putText(img=transparent_img,text='spot='+str(ateam2['spotspergame']), org=(2338,starty+25),fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale=1, color=(0,200,255), thickness=2)
 
-  cv2.putText(img=transparent_img,text='dmgratio='+str(ateam1['damageratio']), org=(20,starty+50),fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale=1, color=(0,200,255), thickness=2)
-  cv2.putText(img=transparent_img,text='dmgratio='+str(ateam2['damageratio']), org=(2268,starty+50),fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale=1, color=(0,200,255), thickness=2)
+  cv2.putText(img=transparent_img,text='dr='+str(ateam1['damageratio']), org=(20,starty+50),fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale=1, color=(50,150,225), thickness=2)
+  cv2.putText(img=transparent_img,text='dr='+str(ateam2['damageratio']), org=(2373,starty+50),fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale=1, color=(50,150,225), thickness=2)
 
   cv2.putText(img=transparent_img,text='kdr='+str(ateam1['killdeathratio']), org=(20,starty+75),fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale=1, color=(100,100,200), thickness=2)
-  cv2.putText(img=transparent_img,text='kdr='+str(ateam2['killdeathratio']), org=(2358,starty+75),fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale=1, color=(100,100,200), thickness=2)
+  cv2.putText(img=transparent_img,text='kdr='+str(ateam2['killdeathratio']), org=(2356,starty+75),fontFace=cv2.FONT_HERSHEY_SIMPLEX,fontScale=1, color=(100,100,200), thickness=2)
 
   cv2.imwrite("overlayimg.jpg", transparent_img)
   np_img = np.array(transparent_img)
@@ -126,10 +127,6 @@ def inGame(ateam1,ateam2):
   np_img[imagemask>0]=[0,0,0]
   photoim =  ImageTk.PhotoImage(image=Image.fromarray(np_img))
   canvas.create_image(0, 0, anchor=NW, image=photoim)
-
-  create_rectangle(10,starty-35,300,starty+85, fill="#%02x%02x%02x" % (51,51,51), alpha=.5)
-
-
   canvas.update()
   root.attributes('-topmost', 'true')
 while True:
